@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [ :update]
+  before_action :user_validate, only: [ :update]
   
   helper SessionsHelper
   
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.order(created_at: :desc)
   end
   
   def new
@@ -39,11 +41,17 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password,
+    params.require(:user).permit(:name, :region, :email, :password,
                                  :password_confirmation)
   end
   
   def set_user
     @user = User.find(params[:id])
   end
-end  
+  
+  def user_validate
+    if @user.id != current_user.id then
+      redirect_to root_path
+    end
+  end
+end
