@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   end
   
   def user_validate
-    if @user.id != current_user.id then
+    if @user.id != current_user.id
       redirect_to root_path
     end
   end
