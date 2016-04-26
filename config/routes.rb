@@ -8,7 +8,18 @@ Rails.application.routes.draw do
   get       'settings' , to: 'users#edit'
   post      'settings' , to: 'users#update'
   
-  resources :users
+# get       'followings' , to: 'users#followings'
+# get       'followers' , to: 'users#followers'
+
+
+  
+  resources :users, except: [:edit, :update]  do
+    member do
+      get :followings
+      get :followers
+    end
+  end
+  
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts
   
