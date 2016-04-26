@@ -31,12 +31,23 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       # 保存に成功した場合はrootにリダイレクト
       flash[:success] = "Edit Completed!"
-      redirect_to @user
+      redirect_to root_path
     else
       # 保存に失敗した場合は編集画面へ戻す
       render 'edit'
     end
   end
+  
+  def followings
+    @user = User.find(params[:id])
+    @following_users = @user.following_users
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @follower_users = @user.follower_users
+  end
+  
 
   private
 
