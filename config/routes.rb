@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
 
   
-  resources :users, except: [:edit, :update]  do
+  resources :users, except: [:edit]  do
     member do
       get :followings
       get :followers
@@ -21,7 +21,12 @@ Rails.application.routes.draw do
   end
   
   resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts
+
+  resources :microposts do
+    member do
+      get :retweet
+    end
+  end  
   
   resources :relationships, only: [:create, :destroy]
 end

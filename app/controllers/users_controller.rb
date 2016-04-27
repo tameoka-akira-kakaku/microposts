@@ -48,7 +48,10 @@ class UsersController < ApplicationController
     @follower_users = @user.follower_users
   end
   
-
+  def retweet
+    
+  end
+  
   private
 
   def user_params
